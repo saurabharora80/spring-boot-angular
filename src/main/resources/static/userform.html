@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Create User</title>
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-css-only/css/bootstrap.css"/>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="userApp">
+<div class="form" ng-controller="UserController">
+    <form id="user" action="#">
+        <p class="contact"><label for="firstName">First Name</label></p>
+        <input id="firstName" name="firstName" placeholder="First name" required="" tabindex="1" type="text" ng-model="user.firstName"/>
+        <p class="contact"><label for="lastName">Last Name</label></p>
+        <input id="lastName" name="lastName" placeholder="Last name" required="" tabindex="1" type="text" ng-model="user.lastName"/>
+
+        <fieldset>
+            <p><label>Birthday</label></p>
+            <label>Day<input class="birthday" maxlength="2" name="BirthDay" placeholder="Day" required="" ng-model="user.dateOfBirth.birthday" /></label>
+            <label>Month</label>
+            <label class="month">
+                <select class="select-style" name="BirthMonth" required="true" ng-model="user.dateOfBirth.month">
+                    <option value="">Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </label>
+            <label>Year<input class="birthyear" maxlength="4" name="BirthYear" placeholder="Year" required="" ng-model="user.dateOfBirth.year"/></label>
+        </fieldset>
+
+        <p>
+            <select class="select-style gender" name="gender" required="true" ng-model="user.gender">
+                <option value="">I am...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Other</option>
+            </select>
+        </p>
+        <p>
+            <select class="select-style centre" name="centre" required="true" ng-model="user.centre">
+                <option value="">I am from...</option>
+                <option value="SOUTHALL">Southall</option>
+                <option value="LEEDS">Leeds</option>
+                <option value="HAYNES">Haynes</option>
+            </select>
+        </p>
+
+        <p class="contact"><label for="mobileNumber">Mobile phone</label></p>
+        <input id="mobileNumber" name="mobileNumber" placeholder="mobile number" required="" type="text"
+               pattern="(\+447|00447|07)[0-9]{9}" title="Please provide a valid UK mobile number" ng-model="user.phoneNumber"/>
+        <br/>
+        <input class="buttom" name="submit" type="button" id="submit" tabindex="5" value="Add User" ng-click="postBody()" />
+    </form>
+</div>
+<script type="text/javascript">
+
+    angular.module("userApp", []).controller('UserController', ['$scope', '$http', function($scope, $http) {
+        $scope.postBody = function() {
+            $http.post("http://localhost:8080/user", $scope.user);
+        };
+    }]
+    );
+
+
+</script>
+</body>
+</html>
